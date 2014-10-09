@@ -6,7 +6,7 @@
 using namespace std;
 using std::vector;
 
-int counter = 0;
+long long int counter = 0;
 
 struct Box{	
 	long long len,wid;
@@ -89,15 +89,15 @@ void mergesort(vector<Box>& vv,int start,int end){
 
 int main()
 {
-	int test,num;
-	long long ww, ll;
+	int test;
+	long long ww, ll,num;
 	long long int ans;
 	std::vector<Box> vb;
 	std::vector<Box>::iterator it;
 	scanf("%d", &test);
 	for (int i = 0; i < test; ++i)
 	{
-		scanf("%d", &num);
+		scanf("%lld", &num);
 		for (int j = 0; j < num; ++j)
 		{
 			scanf("%lld %lld", &ll , &ww);
