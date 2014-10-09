@@ -5,10 +5,9 @@
 #include <array>
 using namespace std;
 using std::vector;
-
 long long int counter = 0;
 
-struct Box{	
+struct Box{
 	long long len,wid;
 } box;
 
@@ -20,23 +19,22 @@ bool myfunc(Box a,Box b){
         return (a.len < b.len);
 }
 vector<Box> temp(100000);
+
 void mergee(vector<Box>& vv,int start,int mid,int end){
 	//cout<<"mergee";
 	int i = start;
 	int j = mid + 1;
 	int curr = 0;
 	int pin;
-	
 	while(i<= mid && j<=end){
 		if(vv[i].wid <= vv[j].wid){
 			if(vv[i].wid < vv[j].wid){
 				counter += end- j + 1;
 				//cout<<"counter="<<counter<<"\n";
 			}
-			
 			else if(vv[i].wid == vv[j].wid){
 				pin=j;
-				while(vv[i].wid == vv[pin].wid && pin<=end){
+				while(pin<=end && vv[i].wid == vv[pin].wid){
 					if(vv[i].len < vv[pin].len)
 						break;
 					pin++;
@@ -85,8 +83,6 @@ void mergesort(vector<Box>& vv,int start,int end){
 
 }
 
-
-
 int main()
 {
 	int test;
@@ -103,8 +99,7 @@ int main()
 			scanf("%lld %lld", &ll , &ww);
 			box.len = (ll > ww )? ll:ww;
 			box.wid = (ww < ll )? ww:ll;
-			vb.push_back(box);	
-			
+			vb.push_back(box);
 		}
 		//cout<<"boxes : "<<vb.size()<<"\n";
 		std::sort(vb.begin(),vb.end(),myfunc);
