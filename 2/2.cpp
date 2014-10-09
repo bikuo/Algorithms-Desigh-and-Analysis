@@ -13,7 +13,11 @@ struct Box{
 } box;
 
 bool myfunc(Box a,Box b){
-	return (a.len < b.len);
+    if (a.len == b.len) {
+        return (a.wid < b.wid);
+    }
+    else
+        return (a.len < b.len);
 }
 vector<Box> temp(100000);
 void mergee(vector<Box>& vv,int start,int mid,int end){
