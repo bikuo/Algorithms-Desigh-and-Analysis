@@ -27,7 +27,7 @@ void mergee(vector<Box>& vv,int start,int mid,int end){
 		if(vv[i].wid <= vv[j].wid){
 			if(vv[i].wid < vv[j].wid){
 				counter += end- j + 1;
-				cout<<"counter="<<counter<<"\n";
+				//cout<<"counter="<<counter<<"\n";
 			}
 			
 			else if(vv[i].wid == vv[j].wid){
@@ -40,7 +40,7 @@ void mergee(vector<Box>& vv,int start,int mid,int end){
 				/*if(vv[i].len < vv[j].len)
 					counter += 1;*/
 				counter += end-pin+1;
-				cout<<"counter="<<counter<<"\n";
+				//cout<<"counter="<<counter<<"\n";
 			}
 			temp[curr] = vv[i];
 			curr++;
@@ -51,7 +51,7 @@ void mergee(vector<Box>& vv,int start,int mid,int end){
 			curr++;
 			j++;
 			counter += (mid - i + 1)*2;
-			cout<<"counter="<<counter<<"\n";
+			//cout<<"counter="<<counter<<"\n";
 		}	
 	}
 	while(i<=mid){
@@ -102,16 +102,16 @@ int main()
 			vb.push_back(box);	
 			
 		}
-		cout<<"boxes : "<<vb.size()<<"\n";	
+		//cout<<"boxes : "<<vb.size()<<"\n";
 		std::sort(vb.begin(),vb.end(),myfunc);
-		for(it = vb.begin();it!=vb.end();it++)
+		/*for(it = vb.begin();it!=vb.end();it++)
 		{
 			cout<<" "<<it->len;
-		}
-		cout<<"\n";
+		}*/
+		//cout<<"\n";
 		mergesort(vb,0,num-1);
 		//"counter" got
-		printf("counter: %d\n",counter);
+		//printf("counter: %d\n",counter);
 		ans = num*(num-1)-counter;
 		printf("%lld\n",ans);
 		vb.clear();
