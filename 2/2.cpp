@@ -5,7 +5,7 @@
 #include <array>
 using namespace std;
 using std::vector;
-std::array<int ,100000>temp;
+
 int counter = 0;
 
 struct Box{	
@@ -15,18 +15,19 @@ struct Box{
 bool myfunc(Box a,Box b){
 	return (a.len < b.len);
 }
-
+vector<Box> temp(100000);
 void mergee(vector<Box>& vv,int start,int mid,int end){
 	//cout<<"mergee";
 	int i = start;
 	int j = mid + 1;
 	int curr = 0;
 	int pin;
+	
 	while(i<= mid && j<=end){
 		if(vv[i].wid <= vv[j].wid){
 			if(vv[i].wid < vv[j].wid){
 				counter += end- j + 1;
-				//cout<<"counter="<<counter<<"\n";
+				cout<<"counter="<<counter<<"\n";
 			}
 			
 			else if(vv[i].wid == vv[j].wid){
@@ -39,32 +40,32 @@ void mergee(vector<Box>& vv,int start,int mid,int end){
 				/*if(vv[i].len < vv[j].len)
 					counter += 1;*/
 				counter += end-pin+1;
-				//cout<<"counter="<<counter<<"\n";
+				cout<<"counter="<<counter<<"\n";
 			}
-			temp[curr] = vv[i].wid;
+			temp[curr] = vv[i];
 			curr++;
 			i++;
 		}
 		else if(vv[i].wid > vv[j].wid){
-			temp[curr] = vv[j].wid;
+			temp[curr] = vv[j];
 			curr++;
 			j++;
 			counter += (mid - i + 1)*2;
-			//cout<<"counter="<<counter<<"\n";
+			cout<<"counter="<<counter<<"\n";
 		}	
 	}
 	while(i<=mid){
-		temp[curr] = vv[i].wid;
+		temp[curr] = vv[i];
 		curr++;
 		i++;
 	}
 	while(j<=end){
-		temp[curr] = vv[j].wid;
+		temp[curr] = vv[j];
 		curr++;
 		j++;
 	}
 	for(int k=0;k<curr;k++){
-		vv[start].wid = temp[k];
+		vv[start] = temp[k];
 		start++;
 	}
 }
@@ -77,6 +78,7 @@ void mergesort(vector<Box>& vv,int start,int end){
 	mergesort(vv,start,mid);
 	mergesort(vv,mid+1,end);
 	mergee(vv,start,mid,end);
+
 }
 
 
@@ -100,21 +102,21 @@ int main()
 			vb.push_back(box);	
 			
 		}
-		//cout<<"boxes : "<<vb.size()<<"\n";	
+		cout<<"boxes : "<<vb.size()<<"\n";	
 		std::sort(vb.begin(),vb.end(),myfunc);
-		/*for(it = vb.begin();it!=vb.end();it++)
+		for(it = vb.begin();it!=vb.end();it++)
 		{
 			cout<<" "<<it->len;
-		}*/
-		//cout<<"\n";
+		}
+		cout<<"\n";
 		mergesort(vb,0,num-1);
 		//"counter" got
-		//printf("counter: %d\n",counter);
+		printf("counter: %d\n",counter);
 		ans = num*(num-1)-counter;
 		printf("%lld\n",ans);
 		vb.clear();
 		counter = 0;
-		temp = {0};
+		
 	}
 	return 0;
 }
