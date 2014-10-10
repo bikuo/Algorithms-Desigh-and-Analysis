@@ -18,7 +18,7 @@ bool myfunc(Box a,Box b){
     else
         return (a.len < b.len);
 }
-vector<Box> temp(10000000);
+vector<Box> temp(1000000);
 
 void mergee(vector<Box>& vv,int start,int mid,int end){
 	//cout<<"mergee";
@@ -115,7 +115,6 @@ int main()
 		printf("%lld\n",ans);
 		vb.clear();
 		counter = 0;
-		
 	}
 	return 0;
 }
