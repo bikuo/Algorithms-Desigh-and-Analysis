@@ -20,12 +20,13 @@ bool myfunc(Box a,Box b){
 }
 vector<Box> temp(1000000);
 
-void mergee(vector<Box>& vv,int start,int mid,int end){
+void mergee(vector<Box>& vv,const int start,const int mid,const int end){
 	//cout<<"mergee";
 	int i = start;
 	int j = mid + 1;
 	int curr = 0;
 	int pin;
+	int index = start;
 	while(i<= mid && j<=end){
 		if(vv[i].wid <= vv[j].wid){
 			if(vv[i].wid < vv[j].wid){
@@ -67,12 +68,12 @@ void mergee(vector<Box>& vv,int start,int mid,int end){
 		j++;
 	}
 	for(int k=0;k<curr;k++){
-		vv[start] = temp[k];
-		start++;
+		vv[index] = temp[k];
+		index++;
 	}
 }
 
-void mergesort(vector<Box>& vv,int start,int end){
+void mergesort(vector<Box>& vv,const int start,const int end){
 	//cout<<"mergesort";
 	if(start == end)
 		return;
