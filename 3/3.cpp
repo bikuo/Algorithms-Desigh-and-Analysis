@@ -34,11 +34,12 @@ int main()
 		scanf("%d %d %d", &n, &m, &q);
 		for (int j = 1; j <= n; ++j){
 			Player p;
-			int a;
-			scanf("%d", &a);
+			long long int a;
+			scanf("%lld", &a);
 			p.goal=a;
 			p.succ=-1;
 			p.status=-1;
+			p.curr =0;
 			play.push_back(p);
 		}
 		for (int j = 1; j <= m; ++j){
@@ -50,8 +51,9 @@ int main()
 		}
 		for (int j = 1; j <= q; ++j){
 			Event a;
-			int l,r,v;
-			scanf("%d %d %d", &l, &r, &v);
+			int l,r;
+			long long int v;
+			scanf("%d %d %lld", &l, &r, &v);
 			a.left=l;
 			a.right=r;
 			a.goldvol=v;
