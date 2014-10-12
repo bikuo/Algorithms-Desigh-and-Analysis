@@ -72,6 +72,7 @@ int main()
 		for(std::vector<Player>::iterator it=play.begin();it!=play.end();it++){
 			printf("%d ", it->succ);
 		}
+		printf("\n");
 		blocks.clear();
 		events.clear();
 		play.clear();
