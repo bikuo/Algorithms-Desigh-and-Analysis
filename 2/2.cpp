@@ -24,11 +24,11 @@ void mergee(vector<Box>& vv,const int start,const int mid,const int end){
     int tag;
     int index = start;
         while(i<= mid && j<=end){
-			cout<<"i="<<i<<";"<<"j="<<j<<"\n";
-            cout<<vv[i].wid<<";"<<vv[j].wid<<"\n";
+			//cout<<"i="<<i<<";"<<"j="<<j<<"\n";
+           // cout<<vv[i].wid<<";"<<vv[j].wid<<"\n";
             if(vv[i].wid < vv[j].wid){
 				counter += end - j + 1;
-                cout<<"i<j "<<"counter="<<counter<<"\n";
+                //cout<<"i<j "<<"counter="<<counter<<"\n";
                 
                 temp[curr]=vv[i];
                 curr++;
@@ -40,7 +40,7 @@ void mergee(vector<Box>& vv,const int start,const int mid,const int end){
                 if(vv[i].len < vv[j].len){
                     counter += end-j+1;
                 
-                    cout<<"= "<<"counter="<<counter<<"\n";
+                    //cout<<"= "<<"counter="<<counter<<"\n";
                     temp[curr] = vv[i];
                     curr++;
                     i++;
@@ -53,7 +53,7 @@ void mergee(vector<Box>& vv,const int start,const int mid,const int end){
                         tag++;
                     }
                     counter += (end-pin+1)*(tag-i);
-                    cout<<"=* "<<"counter="<<counter<<"\n";
+                    //cout<<"=* "<<"counter="<<counter<<"\n";
                     while(i<tag){
                         temp[curr] = vv[i];
                         curr++;
@@ -82,7 +82,7 @@ void mergee(vector<Box>& vv,const int start,const int mid,const int end){
 			j++;
 			counter += (mid - i + 1)*2;
             
-            cout<<"i>j"<<"counter="<<counter<<"\n";
+            //cout<<"i>j"<<"counter="<<counter<<"\n";
 
 		}
 	}
@@ -100,11 +100,11 @@ void mergee(vector<Box>& vv,const int start,const int mid,const int end){
 		vv[index] = temp[k];
 		index++;
 	}
-    for(it = vv.begin();it!=vv.end();it++)
+    /*for(it = vv.begin();it!=vv.end();it++)
     {
         cout<<" "<<it->wid;
     }
-    cout<<"\n";
+    cout<<"\n";*/
 }
 void mergesort(vector<Box>& vv,const int start,const int end){
 	if(start == end)
