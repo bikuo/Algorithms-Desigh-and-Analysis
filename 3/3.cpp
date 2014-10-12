@@ -70,8 +70,10 @@ int main()
 
 		}
 		for(std::vector<Player>::iterator it=play.begin();it!=play.end();it++){
-			if(it++ ==  play.end())
+			if(it+1 ==play.end()){
 				printf("%lld", it->succ);
+				break;
+			}
 			else
 				printf("%lld ",it->succ);
 
