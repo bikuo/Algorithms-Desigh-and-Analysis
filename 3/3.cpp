@@ -10,7 +10,7 @@ struct Event{
 };
 
 struct Player{
-	long long int goal,curr,succ=-1,status=-1;
+	long long int goal,curr,succ,status;
 };
 
 struct Mine
@@ -37,6 +37,8 @@ int main()
 			int a;
 			scanf("%d", &a);
 			p.goal=a;
+			p.succ=-1;
+			p.status=-1;
 			play.push_back(p);
 		}
 		for (int j = 1; j <= m; ++j){
@@ -70,12 +72,10 @@ int main()
 
 		}
 		for(std::vector<Player>::iterator it=play.begin();it!=play.end();it++){
-			if(it+1 ==play.end()){
+			if(it ==play.begin())
 				printf("%lld", it->succ);
-				break;
-			}
 			else
-				printf("%lld ",it->succ);
+				printf(" %lld",it->succ);
 
 		}
 		printf("\n");
