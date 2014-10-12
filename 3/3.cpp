@@ -70,9 +70,11 @@ int main()
 
 		}
 		for(std::vector<Player>::iterator it=play.begin();it!=play.end();it++){
-			printf("%d", it->succ);
-			if(it != play.back())
-				printf(" ");
+			if(it++ ==  play.end())
+				printf("%lld", it->succ);
+			else
+				printf("%lld ",it->succ);
+
 		}
 		printf("\n");
 		blocks.clear();
