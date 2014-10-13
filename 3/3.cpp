@@ -88,9 +88,10 @@ void decision(vector<Player> &v, int left,int right){
 	for(int i=0;i<v.size();i++){
 		if(v[i].curr <v[i].goal)
 			lose.push_back(v[i]);
-		else
+		else{
 			v[i].curr = pre[i].curr;
 			win.push_back(v[i]);
+		}
 	}
 
 	decision(win,left,mid);
