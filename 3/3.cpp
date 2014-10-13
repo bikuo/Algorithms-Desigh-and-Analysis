@@ -13,7 +13,7 @@ struct Event{
 
 struct Player{
 	int num;
-	long long int goal,curr;
+	unsigned long long int goal,curr;
 	vector<int> mine_field;
 };
 
@@ -110,7 +110,7 @@ int main()
 		for (int j = 1; j <= n; ++j){
 			Player p;
 			long long int a;
-			scanf("%lld", &a);
+			scanf("%llu", &a);
 			p.goal=a;
 			p.curr =0;
 			p.num= j;
