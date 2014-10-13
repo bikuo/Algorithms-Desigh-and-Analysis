@@ -31,9 +31,9 @@ int worker[100001],res[100001],crosscheck[100001];
 int n,m,q;
 
 void decision(vector<Player> &v, int left,int right){
-	if (v.size() == 0)
+	if (v.size() == 0)// base case
 		return;
-	if (left == right && left != q){
+	if (left == right && left != q){ // player succeeded before the last event
 		for (int i = 0; i < v.size(); ++i)
 			res[v[i].num] = left;
 		return;
@@ -41,12 +41,12 @@ void decision(vector<Player> &v, int left,int right){
 	int mid = (left+right)/2;
 	Nodes tnode;
 	vector<Nodes> linked;
-	for(int j=left;j<=mid;j++){// 
-		tnode.loc = events[j].left-0.5;
-		tnode.val = events[j].goldvol;
+	for(int j=left;j<=mid;j++){
+		tnode.loc = events[j].left-0.5; //left bound of gold 
+		tnode.val = events[j].goldvol;//volume of gained gold indicated as (+)
 		linked.push_back(tnode);
-		tnode.loc = events[j].right+0.5;
-		tnode.val = -events[j].goldvol;
+		tnode.loc = events[j].right+0.5;//right bound of gold
+		tnode.val = -events[j].goldvol;//volume of gained gold indicated as (-)
 		linked.push_back(tnode);
 	}
 	tnode.val=0;
@@ -68,20 +68,21 @@ void decision(vector<Player> &v, int left,int right){
 	}
 	if(left == right && left == q){// at the last event 
 		for (int i = 0; i < v.size(); ++i){
-			if (v[i].curr < v[i].goal){
+			if (v[i].curr < v[i].goal){ // goal not yet achieved
 				res[v[i].num] = -1;
 			}
-			else
+			else //goal achieved
 				res[v[i].num] = q;
 		}
 		return;
 	}
 	std::vector<Player> win ,lose;
+	
 	for(int i=0;i<v.size();i++){
 		if(v[i].curr < v[i].goal)
 			lose.push_back(v[i]);
 		else{
-			v[i].curr = pre[i].curr;
+			v[i].curr = pre[i].curr; // restore the previous condition to make sure the very event the player wins  
 			win.push_back(v[i]);
 		}
 	}
