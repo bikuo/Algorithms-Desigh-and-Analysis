@@ -50,7 +50,7 @@ void lcs(char* a, char* b){
 		else 
 			j--;
 	}
-	printf("%s\n", lcs1);}
+	printf("%s", lcs1);}
 	/*int L[m+1][n+1];
 	for (int i = 0; i <= m; ++i)
 		L[i][n] = 0;
