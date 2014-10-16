@@ -1,125 +1,67 @@
-#include <iostream>
 #include <cstdio>
+#include <string>
+#include <vector>
+#include <set>
 #include <cstring>
-#include <cstdlib>
-
-using namespace std;
-
-void lcs(char* a, char* b){
-	int m = strlen(a);
-	int n = strlen(b);
-	//printf("length: %d %d", m,n);
-	//printf("\n");
-	int M[m+1][n+1];
-	for (int i = 0; i <= m; ++i)
-	{
-		for (int j = 0; j <= n; ++j)
-		{
-			if(i==0 || j==0)
-				M[i][j] = 0;
-			else if(a[i-1] == b[j-1])
-				M[i][j] = M[i-1][j-1] + 1;
-			else
-				M[i][j] = max(M[i-1][j], M[i][j-1]);
-		}
-	}
-	// printf out the map constructed above to check for correctness 
-	/*for(int i= 0;i<=m;i++){
-		for(int j=0;j <= n;j++){
-			printf("%d ", M[i][j]);
-		}
-	cout<<"\n";
-	}
-	cout<<"\n";*/
-	int index = M[m][n];
-	if (index ==0)
-		printf("\n");
-	else{
-	char lcs1[index+1];
-	lcs1[index] = '\0';
-	int i=m,j=n;
-	while(i>0 && j>0){
-		if(a[i-1] == b[j-1]){
-			lcs1[index-1] = a[i-1];
-			i--;
-			j--;
-			index--;
-		}
-		else if(M[i-1][j] > M[i][j-1])
-			i--;
-		else 
-			j--;
-	}
-	printf("%s", lcs1);}
-	/*int L[m+1][n+1];
-	for (int i = 0; i <= m; ++i)
-		L[i][n] = 0;
-	
-	for (int j = 0; j <= n; ++j)
-		L[m][j] = 0;
-	
-	for(int i= m-1;i>=0;i--)
-		for(int j = n-1;j>=0;j--){
-			L[i][j] = L[i+1][j+1];
-			if(a[i] == b[j]) 
-				L[i][j]++;
-			if(L[i][j+1] > L[i][j]) 
-				L[i][j] = L[i][j+1];
-			if(L[i+1][j] > L[i][j]) 
-				L[i][j] = L[i+1][j];
-			}
-		
-	/*for(int i= 0;i<=m;i++){
-		for(int j=0;j <= n;j++){
-			printf("%d ", L[i][j]);
-		}
-		cout<<"\n";
-	}
-	if(L[0][0] == 0)
-		printf("\n");
-	else{
-		int i=0,j =0;
-		int length = L[0][0];
-		int index = 0;
-		char lcs[length+1];
-		lcs[length] = '\0';
-		while(i<m && j<n){
-			if(a[i] == b[j]){
-				lcs[index] = a[i];
-				i++;
-				j++;
-				index++;
-			}
-			else if(L[i+1][j] > L[i][j+1])
-				i++;
-			else if(L[i][j+1] > L[i+1][j+1])
-				j++;
-			else if(L[i+1][j] == L[i][j+1])
-				j++;
-			
-		
-		}
-	printf("%s\n",lcs);
-	}*/
-}	
-
-
-
-
-
-int main(int argc, char const *argv[])
-{
-	int n;
-	char str1[2020],str2[2020];
-	scanf("%d", &n);
-	for (int i = 0; i < n; ++i)
-	{
-		scanf("%s", str1);
-		scanf("%s", str2);
-		//cout<<"ready for function\n";
-		
-			lcs(str1,str2);
-		printf("\n");
-	}
-	return 0;
+#include <iostream>
+using std::vector;
+using std::set;
+using std::string;
+using std::cout;
+using std::endl;
+int const MAXN = 2003;
+ 
+int n, m;
+int longest;
+int cache[MAXN][MAXN];
+char a[MAXN];
+char b[MAXN];
+set<string> answer;
+ 
+static inline void get_max(int& a, int b) {
+    if (a < b) a = b;
+}
+static int max( int a, int b){
+    return (a>b)? a:b;
+}
+static int solve(int i, int j) {
+    if (i >= n || j >= m)
+        return 0;
+    if (cache[i][j] > -1)
+        return cache[i][j];
+    if (a[i] == b[j])
+        cache[i][j] = solve(i + 1, j + 1) + 1;
+    get_max(cache[i][j], max(solve(i + 1, j), solve(i, j + 1)));
+    return cache[i][j];
+}
+ 
+static void path(int i, int j, int length, string result) {
+    if (length == 0) {
+        answer.insert(result);
+        return;
+    }
+    for (int x = i + 1; x < n; ++x)
+        for (int y = j + 1; y < m; ++y)
+            if (a[x] == b[y] && cache[x][y] == length)
+                path(x, y, length - 1, result + a[x]);
+}
+ 
+int main(int argc, char **args) {
+    int TC; scanf("%d", &TC);
+    while (TC-- > 0) {
+        scanf("%s%s", a, b);
+        n = strlen(a), m = strlen(b);
+        memset(cache, -1, sizeof cache);
+        longest = solve(0, 0);
+        answer.clear();
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
+                if (a[i] == b[j] && cache[i][j] == longest)
+                    path(i, j, longest - 1, string("") + a[i]);
+        
+        set<string>::iterator it=answer.begin();
+        string result = *it;
+            printf("%s\n", result.c_str());
+    }
+    return 0;
 }
