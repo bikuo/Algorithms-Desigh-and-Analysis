@@ -1,67 +1,106 @@
-#include <cstdio>
-#include <string>
 #include <vector>
-#include <set>
-#include <cstring>
+#include <algorithm>
 #include <iostream>
-using std::vector;
-using std::set;
-using std::string;
-using std::cout;
-using std::endl;
-int const MAXN = 2003;
- 
-int n, m;
-int longest;
-int cache[MAXN][MAXN];
-char a[MAXN];
-char b[MAXN];
-set<string> answer;
- 
-static inline void get_max(int& a, int b) {
-    if (a < b) a = b;
+#include <cstring>
+#include <utility>
+
+#define FOR(A,B,C) for(int A=B;A<C;A++)
+#define EFOR(A,B,C) for(int A=B;A<=C;A++)
+#define RFOR(A,B,C) for(int A=B;A>=C;A--)
+#define PB(A,B) A.push_back(B);
+#define ALL(A) A.begin(),A.end()
+#define VI vector<int>
+#define VS vector<string>
+#define SZ(A) int(A.size())
+
+using namespace std;
+
+char s1[2020],s2[2020];
+int len1,len2;
+static int len[2003][2003];
+char seq[2020];
+bool sys = true;
+
+void trips(int row,int col,int tot)
+{
+	if(tot==len[len2-1][len1-1]){
+		seq[tot]=0;
+		printf("%s\n",seq);
+		sys = false;
+		return;
+	}
+	if(row==len2 || col==len1)
+		return;
+
+	int rec=0;
+	pair< char,pair<int,int> >pos[85];
+	VI done;
+	FOR(r,row,len2)
+		FOR(c,col,len1){
+			if(find(ALL(done),c)!=done.end())
+				continue;
+
+			if(s2[r]==s1[c] && len[r][c]==tot+1){
+				pos[rec++]=make_pair(s2[r],make_pair(r,c));
+				PB(done,c);
+				break;
+			}
+		}
+
+	FOR(i,0,rec)
+		FOR(j,i+1,rec){
+			if(pos[j].first<pos[i].first)
+				swap(pos[i],pos[j]);
+		}
+
+	FOR(all,0,rec){
+		seq[tot]=pos[all].first;
+		trips((pos[all].second).first+1,(pos[all].second).second+1,tot+1);
+		if(!sys)
+			return;
+	}
+
+	return;
 }
-static int max( int a, int b){
-    return (a>b)? a:b;
-}
-static int solve(int i, int j) {
-    if (i >= n || j >= m)
-        return 0;
-    if (cache[i][j] > -1)
-        return cache[i][j];
-    if (a[i] == b[j])
-        cache[i][j] = solve(i + 1, j + 1) + 1;
-    get_max(cache[i][j], max(solve(i + 1, j), solve(i, j + 1)));
-    return cache[i][j];
-}
- 
-static void path(int i, int j, int length, string result) {
-    if (length == 0) {
-        answer.insert(result);
-        return;
-    }
-    for (int x = i + 1; x < n; ++x)
-        for (int y = j + 1; y < m; ++y)
-            if (a[x] == b[y] && cache[x][y] == length)
-                path(x, y, length - 1, result + a[x]);
-}
- 
-int main(int argc, char **args) {
-    int TC; scanf("%d", &TC);
-    while (TC-- > 0) {
-        scanf("%s%s", a, b);
-        n = strlen(a), m = strlen(b);
-        memset(cache, -1, sizeof cache);
-        longest = solve(0, 0);
-        answer.clear();
-        for (int i = 0; i < n; ++i)
-            for (int j = 0; j < m; ++j)
-                if (a[i] == b[j] && cache[i][j] == longest)
-                    path(i, j, longest - 1, string("") + a[i]);
-        
-        set<string>::iterator it=answer.begin();
-        string result = *it;
-            printf("%s\n", result.c_str());
-    }
-    return 0;
+
+int main()
+{
+	int T;
+	scanf("%d",&T);
+	EFOR(cases,1,T){
+		if(cases>1)
+			printf("\n");
+
+		scanf("%s%s",s1,s2)	;
+		len1=strlen(s1),len2=strlen(s2);
+		memset(len,0,sizeof(len));
+
+		FOR(i,0,len2)
+			FOR(j,0,len1){
+				if(s2[i]==s1[j]){
+					if(i>=1 && j>=1)
+						len[i][j]=len[i-1][j-1]+1;
+					else
+						len[i][j]=1;
+				} else {
+					if(i==0 && j==0)
+						len[i][j]=0;
+					else if(i==0)
+						len[i][j]=len[i][j-1];
+					else if(j==0)
+						len[i][j]=len[i-1][j];
+					else
+						len[i][j]=max(len[i-1][j],len[i][j-1]);
+				}
+			}
+			/*FOR(i,0,len2){
+				FOR(j,0,len1){
+					printf("%d", len[i][j]);
+				}
+				printf("\n");
+			}*/
+
+		trips(0,0,0);
+	}
+	return 0;
 }
