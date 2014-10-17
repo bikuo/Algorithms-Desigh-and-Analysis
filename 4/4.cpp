@@ -66,7 +66,7 @@ void lcs(char* a, char* b){
          	}
      	}
 	// printf out the map constructed above to check for correctness 
-	/*for(int i= 0;i<=m;i++){
+	for(int i= 0;i<=m;i++){
 		for(int j=0;j <= n;j++){
 			printf("%d ", M[i][j]);
 		}
@@ -86,7 +86,7 @@ void lcs(char* a, char* b){
 		}
 	cout<<"\n";
 	}
-	cout<<"\n";*/
+	cout<<"\n";
 	//==================================
 	int index = M[m][n];
 	char lcs1[index+1];
@@ -100,7 +100,7 @@ void lcs(char* a, char* b){
 			i--;
 			j--;
 			index--;
-		}
+		}/*
 		else if(M[i-1][j] > M[i][j-1])
 			i--;
 		else if(M[i-1][j] < M[i][j-1])
@@ -118,13 +118,22 @@ void lcs(char* a, char* b){
 				else
 					i--;
 			}
+		}*/
+		else{
+			if(I[i][j] == a[i-1])
+				j--;
+			else if(I[i][j] == b[j-1])
+				i--;
+			else if(I[i][j] != a[i-1] && I[i][j] != b[j-1])
+				i--;
 		}
 			
 	}
 	//cout<<lcs1<<endl;
 	reverse(lcs1);
-	printf("%s", lcs1);
+	printf("%s\n", lcs1);
 	return;
+		
 }	
 int main(int argc, char const *argv[])
 {
@@ -140,7 +149,7 @@ int main(int argc, char const *argv[])
 		reverse(str2);
 		//cout<<str2<<endl;
 		lcs(str1,str2);
-		printf("\n");
+		//printf("\n");
 	}
 	return 0;
 }
