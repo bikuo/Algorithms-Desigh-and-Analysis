@@ -1,106 +1,146 @@
-#include <vector>
-#include <algorithm>
 #include <iostream>
+#include <cstdio>
 #include <cstring>
-#include <utility>
-
-#define FOR(A,B,C) for(int A=B;A<C;A++)
-#define EFOR(A,B,C) for(int A=B;A<=C;A++)
-#define RFOR(A,B,C) for(int A=B;A>=C;A--)
-#define PB(A,B) A.push_back(B);
-#define ALL(A) A.begin(),A.end()
-#define VI vector<int>
-#define VS vector<string>
-#define SZ(A) int(A.size())
+#include <cstdlib>
 
 using namespace std;
 
-char s1[2020],s2[2020];
-int len1,len2;
-static int len[2003][2003];
-char seq[2020];
-bool sys = true;
-
-void trips(int row,int col,int tot)
-{
-	if(tot==len[len2-1][len1-1]){
-		seq[tot]=0;
-		printf("%s\n",seq);
-		sys = false;
-		return;
-	}
-	if(row==len2 || col==len1)
-		return;
-
-	int rec=0;
-	pair< char,pair<int,int> >pos[85];
-	VI done;
-	FOR(r,row,len2)
-		FOR(c,col,len1){
-			if(find(ALL(done),c)!=done.end())
-				continue;
-
-			if(s2[r]==s1[c] && len[r][c]==tot+1){
-				pos[rec++]=make_pair(s2[r],make_pair(r,c));
-				PB(done,c);
-				break;
-			}
-		}
-
-	FOR(i,0,rec)
-		FOR(j,i+1,rec){
-			if(pos[j].first<pos[i].first)
-				swap(pos[i],pos[j]);
-		}
-
-	FOR(all,0,rec){
-		seq[tot]=pos[all].first;
-		trips((pos[all].second).first+1,(pos[all].second).second+1,tot+1);
-		if(!sys)
-			return;
-	}
-
-	return;
+void reverse(char str[]){
+    int i,j;
+    char temp[2020];
+    for(i=strlen(str)-1,j=0; i+1!=0; --i,++j)
+    {
+        temp[j]=str[i];
+    }
+    temp[j]='\0';
+    strcpy(str,temp);
 }
 
-int main()
-{
-	int T;
-	scanf("%d",&T);
-	EFOR(cases,1,T){
-		if(cases>1)
-			printf("\n");
-
-		scanf("%s%s",s1,s2)	;
-		len1=strlen(s1),len2=strlen(s2);
-		memset(len,0,sizeof(len));
-
-		FOR(i,0,len2)
-			FOR(j,0,len1){
-				if(s2[i]==s1[j]){
-					if(i>=1 && j>=1)
-						len[i][j]=len[i-1][j-1]+1;
-					else
-						len[i][j]=1;
-				} else {
-					if(i==0 && j==0)
-						len[i][j]=0;
-					else if(i==0)
-						len[i][j]=len[i][j-1];
-					else if(j==0)
-						len[i][j]=len[i-1][j];
-					else
-						len[i][j]=max(len[i-1][j],len[i][j-1]);
-				}
+void lcs(char* a, char* b){
+	int m = strlen(a);
+	int n = strlen(b);
+	int M[m+1][n+1];
+	char D[m+1][n+1];
+	char I[m+1][n+1];
+	for (int i=0; i<=m; i++)
+    	for (int j=0; j<=n; j++){
+       		//initializing steps on border of maps
+       		if (i == 0 || j == 0){
+         		M[i][j] = 0;
+         		D[i][j] = '.';
+         		I[i][j] = '.';
+         	}
+  			//doing real work 
+       		else{
+       			// two stings matches
+       			if (a[i-1] == b[j-1]){
+         			M[i][j] = M[i-1][j-1] + 1;
+         			D[i][j] = '\\';
+         			I[i][j] = a[i-1];
+       			}
+       			else if(a[i-1] != b[j-1]){
+         			if(M[i-1][j] > M[i][j-1]){
+         				M[i][j] = M[i-1][j];
+         				D[i][j] = '^';
+         				I[i][j] = I[i-1][j];
+         			}
+         			else if(M[i-1][j] < M[i][j-1]){
+         				M[i][j] = M[i][j-1];
+         				D[i][j] = '<';
+         				I[i][j] = I[i][j-1];
+         			}
+         			else if(M[i-1][j] == M[i][j-1]){
+         				if(I[i-1][j] > I[i][j-1]){
+         					M[i][j] = M[i][j-1];
+         					D[i][j] = '<';
+         					I[i][j] = I[i][j-1];
+         				}
+         				else{
+         					M[i][j] = M[i-1][j];
+         					D[i][j] = '^';
+         					I[i][j] = I[i-1][j];
+         				}
+         			}
+       			}
+         	
+         	}
+     	}
+	// printf out the map constructed above to check for correctness 
+	/*for(int i= 0;i<=m;i++){
+		for(int j=0;j <= n;j++){
+			printf("%d ", M[i][j]);
+		}
+	cout<<"\n";
+	}
+	cout<<"\n";
+	for(int i= 0;i<=m;i++){
+		for(int j=0;j <= n;j++){
+			printf("%c ", D[i][j]);
+		}
+	cout<<"\n";
+	}
+	cout<<"\n";
+	for(int i= 0;i<=m;i++){
+		for(int j=0;j <= n;j++){
+			printf("%c ", I[i][j]);
+		}
+	cout<<"\n";
+	}
+	cout<<"\n";*/
+	//==================================
+	int index = M[m][n];
+	char lcs1[index+1];
+	lcs1[index] = '\0';
+	int i=m,j=n;
+	//tracing back to get lcs
+	while(i>0 && j>0){
+		//cout<<i<<";"<<j<<endl;
+		if(D[i][j] == '\\'){
+			lcs1[index-1] = I[i][j];
+			i--;
+			j--;
+			index--;
+		}
+		else if(M[i-1][j] > M[i][j-1])
+			i--;
+		else if(M[i-1][j] < M[i][j-1])
+			j--;
+		else if(M[i-1][j] == M[i][j-1]){
+			if(I[i-1][j] == I[i][j])
+				i--;
+			else if(I[i][j-1] ==  I[i][j])
+				j--;
+			else if(I[i][j] == I[i][j-1] && I[i][j] == I[i-1][j])
+				i--;
+			else if(I[i][j] != I[i][j-1] && I[i][j] != I[i-1][j]){
+				if(I[i-1][j] > I[i][j-1])
+					j--;
+				else
+					i--;
 			}
-			/*FOR(i,0,len2){
-				FOR(j,0,len1){
-					printf("%d", len[i][j]);
-				}
-				printf("\n");
-			}*/
-
-		trips(0,0,0);
+		}
+			
+	}
+	//cout<<lcs1<<endl;
+	reverse(lcs1);
+	printf("%s", lcs1);
+	return;
+}	
+int main(int argc, char const *argv[])
+{
+	int n;
+	char str1[2020],str2[2020];
+	scanf("%d", &n);
+	for (int i = 0; i < n; ++i)
+	{
+		scanf("%s", str1);
+		scanf("%s", str2);
+		reverse(str1);
+		//cout<<str1<<endl;
+		reverse(str2);
+		//cout<<str2<<endl;
+		lcs(str1,str2);
+		printf("\n");
 	}
 	return 0;
 }
