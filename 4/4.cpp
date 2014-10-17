@@ -66,7 +66,7 @@ void lcs(char* a, char* b){
          	}
      	}
 	// printf out the map constructed above to check for correctness 
-	for(int i= 0;i<=m;i++){
+	/*for(int i= 0;i<=m;i++){
 		for(int j=0;j <= n;j++){
 			printf("%d ", M[i][j]);
 		}
@@ -86,7 +86,7 @@ void lcs(char* a, char* b){
 		}
 	cout<<"\n";
 	}
-	cout<<"\n";
+	cout<<"\n";*/
 	//==================================
 	int index = M[m][n];
 	char lcs1[index+1];
