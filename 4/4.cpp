@@ -55,7 +55,7 @@ void lcs(char* a, char* b){
          			else if(M[i-1][j] == M[i][j-1]){
          				if(I[i-1][j] > I[i][j-1]){
          					M[i][j] = M[i][j-1];
-         					D[i][j] = '<'
+         					D[i][j] = '<';
          					I[i][j] = I[i][j-1];
          				}
          				else{
