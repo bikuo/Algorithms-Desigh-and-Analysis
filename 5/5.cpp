@@ -9,10 +9,6 @@ void tetris(char map[15][15],int row,int col){
 	int mat[row+1][col+1][count];
 	// initialize matrix with all zero 
 	memset(mat,0,sizeof(mat));
-	/*for(int i=0;i<=row;i++)
-		for(int j=0;j<=col;j++)
-			for(int k=0;k<count;k++)
-				mat[i][j][k] = 0;*/
 	mat[1][0][count-1] = 1;
 	// two variables for later use
 	int a=(1<<(col-1))+(1<<(col-2));
@@ -64,13 +60,12 @@ void tetris(char map[15][15],int row,int col){
 	printf("%d",mat[row][col][count-1]);
 }
 int main(){
-	int test;
+	int test,row,col;
+	char str[20];
 	scanf("%d", &test);
 	for (int i = 0; i < test; ++i){
-		int row,col;
 		scanf("%d %d", &row, &col);
 		for (int r = 1; r <= row; ++r){
-			char str[20];
 			scanf("%s", str);
 			for(int c = 0;c < col; c++)
 					map[r][c] = str[c];
