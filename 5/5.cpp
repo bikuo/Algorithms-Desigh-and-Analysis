@@ -1,12 +1,14 @@
 #include <iostream>
 #include <cstdio>
+#include <cstring>
 using namespace std;
 char map[15][15];
 int modder=1000000007;
 void tetris(char map[15][15],int row,int col){
 	int count = 1<<col;
-	int mat[16][16][32768]={0};
+	int mat[row+1][col+1][count];
 	// initialize matrix with all zero 
+	memset(mat,0,sizeof(mat));
 	/*for(int i=0;i<=row;i++)
 		for(int j=0;j<=col;j++)
 			for(int k=0;k<count;k++)
@@ -49,12 +51,12 @@ void tetris(char map[15][15],int row,int col){
 							des = 4*k+3;
 							mat[i][j+2][des] += mat[i][j][k];
 							mat[i][j+2][des] %= modder;
+							}
 						}
 					}
-				}
-			}		
+				}		
+			}
 		}
-	}
 	printf("%d",mat[row][col][count-1]);
 }
 int main(){
