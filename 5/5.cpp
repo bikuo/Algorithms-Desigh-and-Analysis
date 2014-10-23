@@ -5,7 +5,7 @@ char map[15][15];
 int modder=1000000007;
 void tetris(char map[15][15],int row,int col){
 	int count = 1<<col;
-	int mat[16][16][32768];
+	int mat[16][16][32768]={0};
 	// initialize matrix with all zero 
 	/*for(int i=0;i<=row;i++)
 		for(int j=0;j<=col;j++)
