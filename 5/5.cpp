@@ -11,7 +11,11 @@ void tetris(char map[15][15],int row,int col){
 		printf("\n");
 	}*/
 	int count = 1<<col;
-	int mat[row+1][col+1][count]={0};
+	int mat[row+1][col+1][count];
+	for(int i=0;i<=row;i++)
+		for(int j=0;j<=col;j++)
+			for(int k=0;k<count;k++)
+				mat[i][j][k] = 0;
 	mat[1][0][count-1] = 1;
 	//printf("count:%d\n", count);
 	int a=(1<<(col-1))+(1<<(col-2));
