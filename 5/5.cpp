@@ -2,7 +2,8 @@
 #include <cstdio>
 using namespace std;
 char map[15][15];
-int modder 1000000007;
+int modder=1000000007;
+
 void tetris(char map[15][15],int row,int col){
 	/*for (int i = 0; i <= row; ++i){
 		for (int j = 0; j < col; ++j)
