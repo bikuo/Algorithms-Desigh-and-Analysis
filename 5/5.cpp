@@ -26,7 +26,8 @@ void tetris(char map[15][15],int row,int col){
 					if(((k>>(col-1)) & 1) ==1){// 1*1 block or a natural obstacle
 						des = 2*(k-b)+1;
               			mat[i][j+1][des] += mat[i][j][k];
-              			mat[i][j+1][des] %= modder;
+              			if(mat[i][j+1][des] >= modder)
+              				mat[i][j+1][des] -= modder;
 					}
       				// not an obstacle
 					if(map[i][j] != 'X'){
@@ -38,19 +39,22 @@ void tetris(char map[15][15],int row,int col){
 						if(((k>>(col-1)) % 2)==0){ // 2*1 vertical 
 				  			des = 2*k+1;
 				    		mat[i][j+1][des] += mat[i][j][k];
-				    		mat[i][j+1][des] %= modder;
+				    		if(mat[i][j+1][des] >= modder)
+				    			mat[i][j+1][des] -= modder;
 						}
 						// cases with wider blocks 
 						if(j < col-1 && map[i][j+1] !='X'){
 						 	if(((k>>(col-2)) & 3) == 3){ // 1*2 horizontal 
 				  			des = 4*(k-a)+3;
 				  			mat[i][j+2][des] += mat[i][j][k];
-				  			mat[i][j+2][des] %= modder;
+				  			if(mat[i][j+2][des] >= modder)
+				  				mat[i][j+2][des] -= modder;
 							}
 							if(((k>>(col-2)) % 2) == 0 && ((k>>(col-1)) % 2 == 0)){ // 2*2 square
 							des = 4*k+3;
 							mat[i][j+2][des] += mat[i][j][k];
-							mat[i][j+2][des] %= modder;
+							if(mat[i][j+2][des] >= modder)
+								mat[i][j+2][des] -= modder;
 							}
 						}
 					}
