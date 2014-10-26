@@ -46,7 +46,7 @@ void tetris(char map[15][15],int row,int col){
 				  			if(mat[i][j+2][des] >= modder)
 				  				mat[i][j+2][des] -= modder;
 							}
-							if(((k>>(col-2)) % 2) == 0 && ((k>>(col-1)) % 2 == 0)){ // 2*2 square
+							if(((k>>(col-2)) == 0)){ // 2*2 square
 							des = 4*k+3;
 							mat[i][j+2][des] += mat[i][j][k];
 							if(mat[i][j+2][des] >= modder)
