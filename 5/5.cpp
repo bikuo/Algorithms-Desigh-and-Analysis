@@ -5,10 +5,10 @@ using namespace std;
 char map[15][15];
 int modder=1000000007;
 int pow_2[17] = { 1,2,4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536 };
-int mat[16][16][32768];
 void tetris(char map[15][15],int row,int col){
 	int count = pow_2[col];
 	// initialize matrix with all zero 
+	static int mat[16][16][32768];
 	memset(mat,0,sizeof(mat));
 	mat[1][0][count-1] = 1;
 	// two variables for later use
