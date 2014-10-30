@@ -17,14 +17,14 @@ void tetris(char map[15][15],int row,int col){
 	int b=pow_2[col-1];
 	int des;
 	for (int i = 1; i <= row; ++i){
-		cout<<"tetris\n";
+		//cout<<"tetris\n";
 		for(int j=0;j <col; j++){
 			for(int k=0;k<count;k++){
 					if(i > 1 && j==0)
 						mat[i][j][k] = mat[i-1][col][k];
 					if(((k>>(col-1)) & 1) ==1){// 1*1 block or a natural obstacle
 						des = 2*(k-b)+1;
-						cout<<"1*1\n";
+						//cout<<"1*1\n";
               			mat[i][j+1][des] += mat[i][j][k];
               			if(mat[i][j+1][des] >= modder)
               				mat[i][j+1][des] -= modder;
@@ -33,13 +33,13 @@ void tetris(char map[15][15],int row,int col){
 					if(map[i][j] != 'X'){
 			  			if(((k>>(col-1)) & 1) ==1){ // leave a blank
           					des = (k-b)*2;
-          					cout<<"no\n";
+          					//cout<<"no\n";
             				mat[i][j+1][des] += mat[i][j][k];
             				mat[i][j+1][des] %= modder;
 						}
 						if(((k>>(col-1)) % 2)==0){ // 2*1 vertical 
 				  			des = 2*k+1;
-				  			cout<<"2*1\n";
+				  			//cout<<"2*1\n";
 				    		mat[i][j+1][des] += mat[i][j][k];
 				    		if(mat[i][j+1][des] >= modder)
 				    			mat[i][j+1][des] -= modder;
@@ -49,25 +49,25 @@ void tetris(char map[15][15],int row,int col){
 						 	if(((k>>(col-2)) & 3) == 3){ // 1*2 horizontal 
 				  			des = 4*(k-a)+3;
 				  			mat[i][j+2][des] += mat[i][j][k];
-				  			cout<<"1*2\n";
+				  			//cout<<"1*2\n";
 				  			if(mat[i][j+2][des] >= modder)
 				  				mat[i][j+2][des] -= modder;
 							}
 							if(((k>>(col-2)) == 0)){ // 2*2 square
 							des = 4*k+3;
 							mat[i][j+2][des] += mat[i][j][k];
-							cout<<"2*2\n";
+							//cout<<"2*2\n";
 							if(mat[i][j+2][des] >= modder)
 								mat[i][j+2][des] -= modder;
 							}
 						}
 					}
 				}
-				for (int l = 0; l < count; ++l)
+				/*for (int l = 0; l < count; ++l)
 				{
 					cout<<mat[i][j][l]<<" ";
 				}
-				cout<<"----\n";		
+				cout<<"----\n";*/
 			}
 		}
 	printf("%d",mat[row][col][count-1]);
