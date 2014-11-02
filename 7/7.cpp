@@ -35,11 +35,18 @@ int main(int argc, char const *argv[]){
 		int res=0;
 		for(int j = m;j>=0;j--){
 			//price -= (price/d[j])*d[j];
-			cash[j] -= price/d[j];
-			price %= d[j];
+			//price %= d[j];
+			if(cash[j] >= price/d[j]){
+				cash[j] -= price/d[j];
+				price %= d[j];
+			}
+			else{
+				price -= d[j]*cash[j];
+				cash[j] = 0;
+			}
 			/*for(int n=0;n<10;n++)
-				cout<<cash[n]<<" ";*/
-			//cout<<endl;
+				cout<<cash[n]<<" ";
+			cout<<endl;*/
 			res += cash[j];
 		}
 		if(price != 0)
