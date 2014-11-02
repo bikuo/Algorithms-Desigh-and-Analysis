@@ -50,7 +50,7 @@ int main(int argc, char const *argv[]){
 			res += cash[j];
 		}
 		if(price != 0)
-			printf("WTF\n");
+			printf("-1\n");
 		else
 			printf("%d\n", res);
 	}	
