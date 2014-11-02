@@ -9,7 +9,7 @@ int main(int argc, char const *argv[]){
 		int price,m;
 		bool affordable = false;
 		scanf("%d", &price);
-	 	//get amount for each denomination
+	 	//amount for each denomination
 		int cash[10];
 		for(m=0;m<10;m++)
 			scanf("%d", &cash[m]);
@@ -17,61 +17,42 @@ int main(int argc, char const *argv[]){
 		// algorithm starts here
 		for(m=0;m<10;m++){
 			price -= (d[m]*cash[m]);
-			if(price < 0){
-				//affordable = !affordable;
-				break;
-			}
 		}
-		
+		if(price == 0){
+			printf("-1\n");
+			continue;
+		}
 		// too pricy
-		if(price >0){
+		if(price > 0){
 			printf("-1\n");
 			continue;
 		}
 		// affordable,take back excessive payment using greedy 
 		else{
-		price *= (-1);
-		int res=0;
-		for(int j = m;j>=0;j--){
-			if(d[j] <= price){
-			//price -= (price/d[j])*d[j];
-			//price %= d[j];
-			if(cash[j] >= price/d[j]){
-				cash[j] -= price/d[j];
-				price -= (price/d[j])*d[j];
+			price *= (-1);
+			int res=0;
+			for(int j = 9;j>=0;j--){
+				if(price >= d[j]){
+					//price -= (price/d[j])*d[j];
+					if(cash[j] >= price/d[j]){
+						cash[j] -= price/d[j];
+						price %= d[j];
+					}
+					else{
+						price -= cash[j]*d[j];
+						cash[j] = 0;
+					}
+					// for(int n=0;n<10;n++)
+					// 	cout<<cash[n]<<" ";
+					// cout<<endl;
+				}
+				res += cash[j];
 			}
-			else{
-				price -= d[j]*cash[j];
-				cash[j] = 0;
-			}
-			//for(int n=0;n<10;n++)
-			//	cout<<cash[n]<<" ";
-			//cout<<endl;
-			}
-			res += cash[j];
-		
+			if(price > 0)
+				printf("-1\n");
+			else
+				printf("%d\n", res);
 		}
-		if(price > 0)
-			printf("-1\n");
-		else
-			printf("%d\n", res);
-	}
-
-
-		 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}	
 	return 0;
 }
