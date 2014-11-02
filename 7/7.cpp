@@ -13,20 +13,21 @@ int main(int argc, char const *argv[]){
 		int cash[10];
 		for(m=0;m<10;m++)
 			scanf("%d", &cash[m]);
+		if(price == 0){
+			printf("-1\n");
+			continue;
+		}
 		// =================================
 		// algorithm starts here
 		for(m=0;m<10;m++){
 			price -= (d[m]*cash[m]);
 		}
-		if(price == 0){
-			printf("-1\n");
-			continue;
-		}
-		/*// too pricy
+		
+		// too pricy
 		if(price > 0){
 			printf("-1\n");
 			continue;
-		}*/
+		}
 		// affordable,take back excessive payment using greedy 
 		else{
 			price *= (-1);
