@@ -37,8 +37,8 @@ int main(int argc, char const *argv[]){
 			//price -= (price/d[j])*d[j];
 			cash[j] -= price/d[j];
 			price %= d[j];
-			for(int n=0;n<10;n++)
-				cout<<cash[n]<<" ";
+			/*for(int n=0;n<10;n++)
+				cout<<cash[n]<<" ";*/
 			cout<<endl;
 			res += cash[j];
 		}
