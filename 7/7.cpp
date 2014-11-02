@@ -14,10 +14,10 @@ int main(int argc, char const *argv[]){
 		for(m=0;m<10;m++)
 			scanf("%d", &cash[m]);
 	 	//missing one dollars
-		if(cash[0] < (price % 10)){
+		/*if(cash[0] < (price % 10)){
 			printf("-1\n");
 			continue;
-		}
+		}*/
 
 		for(m=0;m<10;m++){
 			price -= (d[m]*cash[m]);
