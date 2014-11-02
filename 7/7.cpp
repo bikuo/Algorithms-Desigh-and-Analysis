@@ -13,12 +13,6 @@ int main(int argc, char const *argv[]){
 		int cash[10];
 		for(m=0;m<10;m++)
 			scanf("%d", &cash[m]);
-	 	//missing one dollars
-		/*if(cash[0] < (price % 10)){
-			printf("-1\n");
-			continue;
-		}*/
-
 		for(m=0;m<10;m++){
 			price -= (d[m]*cash[m]);
 			if(price < 0){
@@ -27,7 +21,7 @@ int main(int argc, char const *argv[]){
 			}
 		}
 		// too pricy
-		if(affordable == false){
+		if(price >0){
 			printf("-1\n");
 			continue;
 		}
@@ -38,7 +32,7 @@ int main(int argc, char const *argv[]){
 			//price %= d[j];
 			if(cash[j] >= price/d[j]){
 				cash[j] -= price/d[j];
-				price %= d[j];
+				price -= (price/d[j])*d[j];
 			}
 			else{
 				price -= d[j]*cash[j];
