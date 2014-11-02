@@ -16,7 +16,7 @@ int main(int argc, char const *argv[]){
 		for(m=0;m<10;m++){
 			price -= (d[m]*cash[m]);
 			if(price < 0){
-				affordable = !affordable;
+				//affordable = !affordable;
 				break;
 			}
 		}
@@ -25,6 +25,7 @@ int main(int argc, char const *argv[]){
 			printf("-1\n");
 			continue;
 		}
+		else{
 		price *= (-1);
 		int res=0;
 		for(int j = m;j>=0;j--){
@@ -43,10 +44,11 @@ int main(int argc, char const *argv[]){
 			cout<<endl;*/
 			res += cash[j];
 		}
-		if(price != 0)
+		/*if(price != 0)
 			printf("-1\n");
-		else
+		else*/
 			printf("%d\n", res);
+	}
 	}	
 	return 0;
 }
