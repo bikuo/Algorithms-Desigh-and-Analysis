@@ -22,11 +22,11 @@ int main(int argc, char const *argv[]){
 			printf("-1\n");
 			continue;
 		}
-		// too pricy
+		/*// too pricy
 		if(price > 0){
 			printf("-1\n");
 			continue;
-		}
+		}*/
 		// affordable,take back excessive payment using greedy 
 		else{
 			price *= (-1);
