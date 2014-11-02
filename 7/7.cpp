@@ -39,7 +39,7 @@ int main(int argc, char const *argv[]){
 			price %= d[j];
 			/*for(int n=0;n<10;n++)
 				cout<<cash[n]<<" ";*/
-			cout<<endl;
+			//cout<<endl;
 			res += cash[j];
 		}
 		if(price != 0)
