@@ -29,6 +29,13 @@ int main(int argc, char const *argv[]){
 			continue;
 		}
 		// affordable,take back excessive payment using greedy 
+		else if(price == 0){
+			int res=0;
+			for(int j=0;j<10;j++){
+				res += cash[j];
+			}
+			printf("%d\n",res);
+		}
 		else{
 			price *= (-1);
 			int res=0;
@@ -49,9 +56,9 @@ int main(int argc, char const *argv[]){
 				}
 				res += cash[j];
 			}
-			/*if(price > 0)
+			if(price > 0)
 				printf("-1\n");
-			else*/
+			else
 				printf("%d\n", res);
 		}
 	}	
