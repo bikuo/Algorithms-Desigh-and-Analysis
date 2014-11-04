@@ -45,7 +45,7 @@ int main(int argc, char const *argv[]){
 			}
 			if((price >= 50) && cash[4] > 0){
 				prices[0] = price - 50;
-				cout<<"prices[0] = "<<prices[0]<<"\n";
+				//cout<<"prices[0] = "<<prices[0]<<"\n";
 				amount[0][4] = (cash[4]-1) / 2;
 				amount[0][7] = cash[7] / 2;
 				res[0] = 1;
