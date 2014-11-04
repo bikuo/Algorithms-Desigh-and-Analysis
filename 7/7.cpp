@@ -83,7 +83,7 @@ int main(int argc, char const *argv[]){
 								//cout<<"res."<<j<<"="<<res[n]<<endl;
 							}
 							else{
-								prices[n] -=  amount[n][j]*v[j];
+								prices[n] -=  (amount[n][j]*v[j]);
 								res[n] += (j==4 || j==7)? (2*amount[n][j]): amount[n][j];
 								//cout<<"res.."<<j<<"="<<res[n]<<endl;
 							}
@@ -99,7 +99,7 @@ int main(int argc, char const *argv[]){
 					min = res[n];
 			}
 			if(prices[0] && prices[1] && prices[2] && prices[3])
-				printf("woohoo\n");
+				printf("-1\n");
 			else
 				printf("%d\n",count-min);
 		}
