@@ -39,6 +39,7 @@ int main(int argc, char const *argv[]){
 			int min=99999999;
 			//n=0 50 odd 500 even
 			for(m=0;m<4;m++){
+				prices[m] = price;
 				res[m] = 1e9;
 				for(n=0;n<10;n++)
 					amount[m][n] = cash[n];
