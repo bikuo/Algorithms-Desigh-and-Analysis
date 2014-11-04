@@ -77,7 +77,7 @@ int main(int argc, char const *argv[]){
 				if(check[n]){
 					for(int j = 9;j>=0;j--){				
 						if(prices[n] >= v[j]){
-							if(amount[n][j] >= prices[n]/v[j]){
+							if(amount[n][j]*v[j] >= prices[n]){
 								res[n] += (j==4 || j==7)? (2*(prices[n]/v[j])) : (prices[n]/v[j]);
 								prices[n] %= v[j];
 								//cout<<"res."<<j<<"="<<res[n]<<endl;
