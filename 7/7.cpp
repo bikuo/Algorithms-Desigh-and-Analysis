@@ -2,13 +2,12 @@
 #include <iostream>
 using namespace std;
 int main(int argc, char const *argv[]){
-	int d[10] = {1,5,10,20,50,100,200,500,1000,2000};
+	int d[10] = {1,5,10,20,50,100,200,500,1000,2000};	//original 
 	int v[10] = {1,5,10,20,100,100,200,1000,1000,2000};// watch out for indexes 4(100') , 7(1000')
 	int test;
 	scanf("%d", &test);
 	for (int i = 0; i < test; ++i){
-		int m,n,price;
-		int count = 0;
+		int m, n, price ,count = 0;
 		scanf("%d", &price);
 	 	//amount of each denomination
 		int cash[10];
@@ -16,15 +15,14 @@ int main(int argc, char const *argv[]){
 			scanf("%d", &cash[m]);
 			count += cash[m];
 		}
-		// =========================================//
 		for(m=0;m<10;m++)
-			price -= (d[m]*cash[m]);
+			price -= (d[m]*cash[m]); //subtract money on-hand from drink price
 		// too pricy
 		if(price > 0){
 			printf("-1\n");
 			continue;
 		}
-		// exactly 
+		// ah exactly 
 		else if(price == 0){
 			printf("%d\n",count);
 			continue;
@@ -36,17 +34,16 @@ int main(int argc, char const *argv[]){
 			int check[4]={0};
 			int amount[4][10];
 			price *= (-1);
-			int min=99999999;
-			//n=0 50 odd 500 even
+			int min=1e8;
 			for(m=0;m<4;m++){
 				prices[m] = price;
 				res[m] = 1e9;
 				for(n=0;n<10;n++)
 					amount[m][n] = cash[n];
 			}
+			//n=0 50 odd 500 even
 			if((price >= 50) && cash[4] > 0){
-				prices[0] = price - 50;
-				//cout<<"prices[0] = "<<prices[0]<<"\n";
+				prices[0] -= 50;
 				amount[0][4] = (cash[4]-1) / 2;
 				amount[0][7] = cash[7] / 2;
 				res[0] = 1;
@@ -54,7 +51,7 @@ int main(int argc, char const *argv[]){
 			}
 			//n=1 50 even 500 odd 
 			if((price >= 500) && cash[7] > 0){
-				prices[1] = price - 500;
+				prices[1] -= 500;
 				amount[1][4] = cash[4] / 2;
 				amount[1][7] = (cash[7]-1) / 2;
 				res[1] = 1;
@@ -62,7 +59,7 @@ int main(int argc, char const *argv[]){
 			}
 			//n=2 50 odd 500 odd 
 			if((price >= 550) && cash[4] > 0 && cash[7] > 0){
-				prices[2] = price - 550;
+				prices[2] -= 550;
 				amount[2][4] = (cash[4]-1) / 2;
 				amount[2][7] = (cash[7]-1) / 2;
 				res[2] = 2;
@@ -81,19 +78,16 @@ int main(int argc, char const *argv[]){
 							if(amount[n][j]*v[j] >= prices[n]){
 								res[n] += (j==4 || j==7)? (2*(prices[n]/v[j])) : (prices[n]/v[j]);
 								prices[n] %= v[j];
-								//cout<<"res."<<j<<"="<<res[n]<<endl;
 							}
 							else{
 								prices[n] -=  (amount[n][j]*v[j]);
 								res[n] += (j==4 || j==7)? (2*amount[n][j]): amount[n][j];
-								//cout<<"res.."<<j<<"="<<res[n]<<endl;
 							}
 						}
 					}
 					if(prices[n])
 						res[n] = 1e9;
 				}
-				//cout<<"res"<<n<<"="<<res[n]<<endl;
 			}
 			for(n = 0;n<4;n++){
 				if(res[n] < min)
