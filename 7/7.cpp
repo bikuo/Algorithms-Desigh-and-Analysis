@@ -45,6 +45,7 @@ int main(int argc, char const *argv[]){
 			}
 			if((price >= 50) && cash[4] > 0){
 				prices[0] = price - 50;
+				cout<<"prices[0] = "<<prices[0]<<"\n";
 				amount[0][4] = (cash[4]-1) / 2;
 				amount[0][7] = cash[7] / 2;
 				res[0] = 1;
@@ -77,12 +78,14 @@ int main(int argc, char const *argv[]){
 					for(int j = 9;j>=0;j--){				
 						if(prices[n] >= v[j]){
 							if(amount[n][j] >= prices[n]/v[j]){
-								res[n] += (j==4 || j==7)? 2 * prices[n]/v[j] : prices[n]/v[j];
+								res[n] += (j==4 || j==7)? (2*(prices[n]/v[j])) : (prices[n]/v[j]);
 								prices[n] %= v[j];
+								//cout<<"res."<<j<<"="<<res[n]<<endl;
 							}
 							else{
 								prices[n] -=  amount[n][j]*v[j];
 								res[n] += (j==4 || j==7)? 2*amount[n][j]: amount[n][j];
+								//cout<<"res.."<<j<<"="<<res[n]<<endl;
 							}
 						}
 					}
