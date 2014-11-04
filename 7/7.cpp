@@ -84,7 +84,7 @@ int main(int argc, char const *argv[]){
 							}
 							else{
 								prices[n] -=  amount[n][j]*v[j];
-								res[n] += (j==4 || j==7)? 2*amount[n][j]: amount[n][j];
+								res[n] += (j==4 || j==7)? (2*amount[n][j]): amount[n][j];
 								//cout<<"res.."<<j<<"="<<res[n]<<endl;
 							}
 						}
