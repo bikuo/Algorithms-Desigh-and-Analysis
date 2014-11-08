@@ -10,18 +10,21 @@ int intervalcalc(int n,int p,int width){
 	int switchy=0,count =0,start = 0;
 	for(int i=0;i<n;i++){
 		if(coor[i]-coor[start] > width){
+			// case: left bound of set of cities
 			if(switchy == 0){
 				start  = i - 1;
 				switchy = 1;
 				i--;
 			}
+			// case: right bound of set 
 			else if(switchy == 1){
 				start = i;
 				count ++;
 				switchy = 0;
 			}
 		}
-		if ( coor[i]-coor[start] <= width &&  (coor[n-1] - coor[start]) <= width){
+		// reached the edge of the kingdom
+		if ( coor[i]-coor[start] <= width && (coor[n-1] - coor[start]) <= width){
 			count++;
 			break;
 		}
