@@ -5,7 +5,7 @@
 using namespace std;
 using std::sort;
 int coor[100000];
-
+// calculating count of ports with given interval width
 int intervalcalc(int n,int p,int width){
 	int switchy=0,count =0,start = 0;
 	for(int i=0;i<n;i++){
@@ -28,20 +28,19 @@ int intervalcalc(int n,int p,int width){
 	}
 	return count;
 }
+// binary search for a best interval width
 void bin_search(int n, int p, int L, int R){
 	int dis = R;
 	while(L<=R){
 		int mid=(L+R)/2;
-		//cout<<"#width:"<<mid<<"\n";
 		int calc = intervalcalc(n,p,mid);
-		//cout<<"calc"<<calc<<"\n";
+		//too wide
 		if (calc <= p){
 			R = mid -1;
 			dis = mid;
-			//cout<<"dis:"<<dis<<"\n";
 		}
+		//too narrow
 		else{
-			//cout<<"too narrow\n";
 			L = mid + 1;
 		}
 	}
