@@ -53,7 +53,7 @@ int main(int argc, char const *argv[]){
 	for (int i = 0; i < tst; ++i){
 		int city,port;
 		scanf("%d %d", &city, &port);
-		memset(coor,0,city*8);
+		memset(coor,0,sizeof(coor));
 		for(int j=0;j<city;j++)
 			scanf("%d", &coor[j]);
 		sort(coor,coor+city);
