@@ -63,10 +63,10 @@ int main(int argc, char const *argv[])
 			max = (wt > max)? wt:max;
 		}
 		while(max > 0){
-			max = max / 2;
+			max >>= 1;
 			count++;
 		}
-		printf("==%d\n",count);
+		//printf("==%d\n",count);
 	printf("%d\n",search(count,0)); // (bits, initial cost=0)
 	for(int i = 0;i<v.size();i++)
 		v[i].clear();
