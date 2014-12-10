@@ -68,8 +68,8 @@ int main(int argc, char const *argv[])
 		}
 	printf("%d\n",search(count,0)); // (bits, initial cost=0)
 	for(int i = 0;i<=node;i++)
-		v[i].resize(0);
-	v.resize(0);
+		v[i].clear();
+	v.clear();
 	}
 	return 0;
 }
