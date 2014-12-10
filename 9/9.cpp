@@ -17,8 +17,8 @@ std::vector< vector<PATH> > v(100009);
 stack<int> steak;
 int search(int bits,int sum){
 	int vertex = 1;
-	int pathcount[node+1]={0};
-	short pushed[node+1] = {0};
+	int pathcount[100009]={0};
+	short pushed[100009] = {0};
 	
 	steak.push(1);
 	pushed[1] = 1;
