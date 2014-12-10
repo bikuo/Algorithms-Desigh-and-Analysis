@@ -36,7 +36,7 @@ int search(int bits,int sum){
 					//printf("push %d--%d: %d\n",cur, v[cur][pathcount[cur]].end,v[cur][pathcount[cur]].weight );
 					steak.push(v[cur][pathcount[cur]].end);
 					vertex++;
-					pushed[cur] = 1;
+					pushed[v[cur][pathcount[cur]].end] = 1;
 				}	
 			}
 			pathcount[cur]++;
