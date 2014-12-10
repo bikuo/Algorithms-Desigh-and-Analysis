@@ -70,6 +70,7 @@ int main(int argc, char const *argv[])
 	//v.clear();
 	for(int i = 0;i<node;i++)
 		v[i].resize(0);
+	v.resize(0);
 	}
 	return 0;
 }
