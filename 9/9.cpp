@@ -29,7 +29,7 @@ int search(int bits,int sum){
 	while(!steak.empty()){
 		int cur = steak.top();		
 		if(pathcount[cur] < v[cur].size() ){
-			if( ((v[cur][pathcount[cur]].weight ) | sum  )  <  (sum  | twos[bits-1]) ){
+			if( ((v[cur][pathcount[cur]].weight >> (bits-1) ) | (sum >> (bits-1)) )  ==  (sum >> (bits-1)) ){
 				if( ! pushed [v[cur][pathcount[cur]].end] ){
 					steak.push(v[cur][pathcount[cur]].end);
 					vertex++;
