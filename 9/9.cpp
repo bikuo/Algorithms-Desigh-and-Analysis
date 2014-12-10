@@ -67,7 +67,8 @@ int main(int argc, char const *argv[])
 			count++;
 		}
 	printf("%d\n",search(count,0)); // (bits, initial cost=0)
-	v.clear();
+	//v.clear();
+	v.resize(0);
 	}
 	return 0;
 }
