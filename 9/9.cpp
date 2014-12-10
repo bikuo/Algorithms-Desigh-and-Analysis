@@ -38,7 +38,7 @@ int search(int bits,int sum){
 		else
 			steak.pop();
 	}
-	if(vertex != node)// unsuccess
+	if(vertex < node)// unsuccess
 		return (twos[bits-1] + search(bits-1, sum + twos[bits-1]));
 	else				// success
 		return search(bits-1, sum);
@@ -63,9 +63,10 @@ int main(int argc, char const *argv[])
 			max = (wt > max)? wt:max;
 		}
 		while(max > 0){
-			max >>= 1;
+			max = max / 2;
 			count++;
 		}
+		printf("==%d\n",count);
 	printf("%d\n",search(count,0)); // (bits, initial cost=0)
 	for(int i = 0;i<v.size();i++)
 		v[i].clear();
