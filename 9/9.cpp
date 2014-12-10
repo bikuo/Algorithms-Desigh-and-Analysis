@@ -14,9 +14,11 @@ int node,edge;
 const int twos[31]={1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,
 					131072,262144,524288,1048576,2097152,4194304,8388608,16777216,33554432
 					,67108864,134217728,268435456,536870912,1073741824};
-std::vector< vector<PATH> > v;
+std::vector< vector<PATH> > v(100010);
 stack<int> steak;
 int search(int bits,int sum){
+	if(bits == 0)
+		return 0;
 	int vertex = 1;
 	int pathcount[node+1];
 	int pushed[node+1];
@@ -24,16 +26,11 @@ int search(int bits,int sum){
 	memset(pushed,0,sizeof(pushed));
 	steak.push(1);
 	pushed[1] = 1;
-	
-	if(bits == 0)
-		return 0;
-	
 	while(!steak.empty()){
 		int cur = steak.top();		
 		if(pathcount[cur] < v[cur].size() ){
 			if( ((v[cur][pathcount[cur]].weight >> (bits-1) ) | (sum >> (bits-1)) )  ==  (sum >> (bits-1)) ){
 				if( (!pushed[v[cur][pathcount[cur]].end]) && (cur !=v[cur][pathcount[cur]].end) ){
-					//printf("push %d--%d: %d\n",cur, v[cur][pathcount[cur]].end,v[cur][pathcount[cur]].weight );
 					steak.push(v[cur][pathcount[cur]].end);
 					vertex++;
 					pushed[v[cur][pathcount[cur]].end] = 1;
@@ -44,15 +41,10 @@ int search(int bits,int sum){
 		else
 			steak.pop();
 	}
-	
-	if(vertex < node){   // fail
-		//printf("+%d\n", twos[bits-1]);
+	if(vertex < node) // fail
 		return ( twos[bits-1] + search(bits-1, sum + twos[bits-1]));
-	}
-	else{	// okay
-		//printf("+0\n");
+	else	// okay
 		return search(bits-1, sum);
-	}
 }
 int main(int argc, char const *argv[])
 {
@@ -64,7 +56,6 @@ int main(int argc, char const *argv[])
 		scanf("%d%d", &node, &edge);
 		count = 0;
 		max = 0;
-		v.resize(node+1);
 		for(int i = 0;i<edge;i++){
 			scanf("%d %d %d", &end1, &end2, &wt);
 			tmp.weight = wt;
@@ -81,7 +72,7 @@ int main(int argc, char const *argv[])
 			count++;  
 		}
 	printf("%d\n",search(count,0)); // (bits, initial cost=0)
-	for(int i = 0;i<v.size();i++)
+	for(int i = 0;i<=node;i++)
 		v[i].clear();
 	}
 	return 0;
