@@ -46,11 +46,11 @@ int search(int bits,int sum){
 	}
 	
 	if(vertex < node){   // fail
-		printf("+%d\n", twos[bits-1]);
+		//printf("+%d\n", twos[bits-1]);
 		return ( twos[bits-1] + search(bits-1, sum + twos[bits-1]));
 	}
 	else{	// okay
-		printf("+0\n");
+		//printf("+0\n");
 		return search(bits-1, sum);
 	}
 }
