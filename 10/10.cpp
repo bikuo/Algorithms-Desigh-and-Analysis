@@ -36,7 +36,7 @@ int main(int argc, char const *argv[]){
 				else if(intel[i] == intel[i-1])
 					ask[i] = ask[i-1];
 				else if(intel[i] > intel[i-1]){
-					int check = i-1;
+					int check = ask[i-1];
 					while(1){
 						if(intel[check] > intel[i]){
 							ask[i] = check;
