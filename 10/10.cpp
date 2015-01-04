@@ -12,7 +12,7 @@ int main(int argc, char const *argv[]){
 			scanf("%d", &intel[i]);
 			if(intel[i] > max)
 				max = intel[i];
-			if(intel[i] < intel[i-1] && i > 1)
+			if(i > 1 && intel[i] < intel[i-1])
 				ask[i] = i-1;
 		}
 		if(ask[1] == -1){
@@ -42,7 +42,7 @@ int main(int argc, char const *argv[]){
 							ask[i] = check;
 							break;
 						}
-						check = (check == 1)? p:check-1;
+						check = ask[check];
 					}
 				}
 			}
