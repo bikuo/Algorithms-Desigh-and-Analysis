@@ -9,30 +9,30 @@ using std::bitset;
 using std::string;
 int vert,edge;
 int max_click;
+int recur=0;
 vector<string> links(100);
 void B_K(bitset<100> P,int R, bitset<100> X){
-	if( P.none() && X.none() ){
-		max_click = (R > max_click )? R:max_click;  
+	recur++;
+	if( P.none() ){
+		if(X.none())
+			max_click = (R > max_click )? R:max_click;  
 		return;
 	}
 	int pot;
 	if(( pot = (P.count() + R)) < max_click){
 		return;
-	}
-	bitset<100> a = (P | X);
-	size_t piv=0;
-	piv = 99 - (a.to_string()).find_last_of('1');
-	//while(!a.test(piv))
-	//	++piv;
+	}	
+	int piv=0;
+	while(!(P|X).test(piv))
+		++piv;
 	int tmp=0;
 	bitset<100> pivset(links[piv]);
 	bitset<100> Q = P&(~pivset);
 	while( Q.any() && pot > max_click){
-		tmp = 99 - (Q.to_string()).find_last_of('1');
-		// while(!Q.test(tmp))
-		// 	++tmp;
+		while(!Q.test(tmp))
+			++tmp;
 		bitset<100> tmpset(links[tmp]);
-		if(  (Q|tmpset).any() || (tmp == piv) )
+		if(  (Q&tmpset).any() || (tmp == piv) )
 			B_K( (P & tmpset),R+1, (X & tmpset));
 		--pot;
 		P.reset(tmp);
@@ -66,6 +66,7 @@ int main(int argc, char const *argv[])
 		max_click = 0;
 		B_K(P,r,X);
 		printf("%d\n", max_click);
+		recur = 0;
 	}
 	return 0;
 }
