@@ -87,7 +87,7 @@ int main(int argc, char const *argv[])
 		string  p(vert,'1'), x(vert,'0'); 
 		bitset<100>P(p),X(x);
 		max_click = 0;
-		B_K(P,r,X);
+		//B_K(P,r,X);
 		printf("%d\n", max_click);
 		recur = 0;
 		links.clear();
