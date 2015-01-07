@@ -1,20 +1,16 @@
-#include <iostream>
 #include <cstdio>
-#include <cstring>
 #include <bitset>
 #include <vector>
-#include <cassert> 
-#include <boost/dynamic_bitset.hpp> 
-#define dbset boost::dynamic_bitset
+#include <string>
+using namespace std; 
+using std::size_t;
 using std::vector;
 using std::bitset;
-using boost::dynamic_bitset;
-vector< dynamic_bitset<> > links;
+using std::string;
 int vert,edge;
 int max_click;
-//template<std::size_t SIZE>
-//int B_K(bitset<SIZE> P,bitset<SIZE> R,bitset<SIZE> X){}
-void B_K(dbset<> P,int R, dbset<> X){
+vector<string> links(100);
+void B_K(bitset<100> P,int R, bitset<100> X){
 	if( P.none() && X.none() ){
 		max_click = (R > max_click )? R:max_click;  
 		return;
@@ -23,14 +19,19 @@ void B_K(dbset<> P,int R, dbset<> X){
 	if(( pot = (P.count() + R)) < max_click){
 		return;
 	}
-	dbset<> a = (P | X);
-	int piv = a.find_first();
-	int tmp;
-	dbset<> Q = P-links[piv];
+	bitset<100> a = (P | X);
+	size_t piv=0;
+	while(!a.test(piv))
+		++piv;
+	int tmp=0;
+	bitset<100> pivset(links[piv]);
+	bitset<100> Q = P&(~pivset);
 	while( Q.any() && pot > max_click){
-		tmp = Q.find_first();
-		if( (Q|links[tmp]).any() || (tmp == piv) )
-			B_K( (P & links[tmp]),R+1, (X & links[tmp]));
+		while(!Q.test(tmp))
+			++tmp;
+		bitset<100> tmpset(links[tmp]);
+		if(  (Q|tmpset).any() || (tmp == piv) )
+			B_K( (P & tmpset),R+1, (X & tmpset));
 		--pot;
 		P.reset(tmp);
 		X.set(tmp);
@@ -48,20 +49,23 @@ int main(int argc, char const *argv[])
 		links.resize(vert);
 		int f,t,r=0;
 		for (int i = 0; i < vert; ++i){
-			links[i].resize(vert);
-			links[i].set();
-			links[i][i].flip();
+			//links[i].set();
+			//links[i][i].flip();
+			links[i].replace(0,1,100,'1');
+			links[i].replace(0,(100-vert),(100-vert),'0');
+			links[i][99-i] = '0';
 		}
 		for (int i = 0; i < edge; ++i){// reads in the complementary graph
 			scanf("%d%d", &f, &t);
-			links[f][t].flip();
-			links[t][f].flip();
+			links[f][99-t]='0';
+			links[t][99-f]='0';
 		}
-		dbset<> p(vert), x(vert); 
-		p.set();
+		string  p(vert,'1'), x(vert,'0'); 
+		bitset<100>P(p),X(x);
 		max_click = 0;
-		B_K(p,r,x);
+		B_K(P,r,X);
 		printf("%d\n", max_click);
+		links.clear();
 	}
 	return 0;
 }
