@@ -31,14 +31,14 @@ void B_K(bitset<100> P,int R, bitset<100> X){
 		return;
 	}	
 	int piv=0;
-	while(!(P|X).test(piv))
-		++piv;
+	//while(!(P|X).test(piv))
+	//	++piv;
 	int tmp=0;
 	bitset<100> pivset(links[piv]);
 	bitset<100> Q = P&(~pivset);
 	while( pot > max_click && Q.any()){
-		while(!Q.test(tmp))
-			++tmp;
+		//while(!Q.test(tmp))
+		//	++tmp;
 		bitset<100> tmpset(links[tmp]);
 		bitset<100> check = (Q&tmpset);
 		P.reset(tmp);
@@ -87,7 +87,7 @@ int main(int argc, char const *argv[])
 		string  p(vert,'1'), x(vert,'0'); 
 		bitset<100>P(p),X(x);
 		max_click = 0;
-		//B_K(P,r,X);
+		B_K(P,r,X);
 		printf("%d\n", max_click);
 		recur = 0;
 		links.clear();
