@@ -21,14 +21,16 @@ void B_K(bitset<100> P,int R, bitset<100> X){
 	}
 	bitset<100> a = (P | X);
 	size_t piv=0;
-	while(!a.test(piv))
-		++piv;
+	piv = 99 - (a.to_string()).find_last_of('1');
+	//while(!a.test(piv))
+	//	++piv;
 	int tmp=0;
 	bitset<100> pivset(links[piv]);
 	bitset<100> Q = P&(~pivset);
 	while( Q.any() && pot > max_click){
-		while(!Q.test(tmp))
-			++tmp;
+		tmp = 99 - (Q.to_string()).find_last_of('1');
+		// while(!Q.test(tmp))
+		// 	++tmp;
 		bitset<100> tmpset(links[tmp]);
 		if(  (Q|tmpset).any() || (tmp == piv) )
 			B_K( (P & tmpset),R+1, (X & tmpset));
