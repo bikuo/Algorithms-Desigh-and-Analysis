@@ -46,7 +46,6 @@ int main(int argc, char const *argv[])
 	while(tst--){
 		vert=0,edge=0;
 		scanf("%d%d", &vert, &edge);
-		links.resize(vert);
 		int f,t,r=0;
 		for (int i = 0; i < vert; ++i){
 			//links[i].set();
@@ -65,7 +64,6 @@ int main(int argc, char const *argv[])
 		max_click = 0;
 		B_K(P,r,X);
 		printf("%d\n", max_click);
-		links.clear();
 	}
 	return 0;
 }
