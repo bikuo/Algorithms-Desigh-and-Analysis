@@ -28,11 +28,12 @@ void B_K(bitset<100> P,int R, bitset<100> X){
 	int tmp=0;
 	bitset<100> pivset(links[piv]);
 	bitset<100> Q = P&(~pivset);
-	while( Q.any() && pot > max_click){
+	while( pot > max_click && Q.any()){
 		while(!Q.test(tmp))
 			++tmp;
 		bitset<100> tmpset(links[tmp]);
-		if(  (Q&tmpset).any() || (tmp == piv) )
+		bitset<100> check = (Q&tmpset);
+		if( (tmp == piv) || (Q&tmpset).any())
 			B_K( (P & tmpset),R+1, (X & tmpset));
 		--pot;
 		P.reset(tmp);
