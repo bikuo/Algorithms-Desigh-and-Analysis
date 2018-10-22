@@ -2,4 +2,4 @@
 - refer to *pdf* file for details
 
 
-[embed]https://github.com/williamkuo0617/Algorithms-Design-and-Analysis/blob/master/2/2.pdf[/embed]
+[https://github.com/williamkuo0617/Algorithms-Design-and-Analysis/blob/master/2/2.pdf]
